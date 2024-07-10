@@ -1,7 +1,10 @@
+#pragma warning disable CS8600 // Caso for alterar toda estrutura do SDK habilite os erros
+
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace sdk_cloud_dfe
+namespace Sdk.CloudDfe
 {
     public class Softhouse : Base
     {
@@ -23,8 +26,8 @@ namespace sdk_cloud_dfe
                 throw new Exception("O doc não foi informado no processo.");
             }
 
-            var doc = payload["doc"].ToString()
-            var resp = await _client.Send("GET", $"/soft/emitente/{doc}", null);
+            var doc = payload["doc"].ToString();
+            var resp = await _client.Send("GET", $"/soft/emitente/{doc}");
             return resp;
         }
         public async Task<Dictionary<string, object>> ListaEmitentes(Dictionary<string, object> payload)
@@ -37,10 +40,10 @@ namespace sdk_cloud_dfe
                 rota = "/soft/emitente/deletados";
             }
             
-            var resp = await _client.Send("GET", rota, null);
+            var resp = await _client.Send("GET", rota);
             return resp;
         }
-        public async Task DeletaEmitente(Dictionary<string, object> payload)
+        public async Task<Dictionary<string, object>> DeletaEmitente(Dictionary<string, object> payload)
         {
             if (payload == null || !payload.ContainsKey("doc") || string.IsNullOrEmpty(payload["doc"].ToString()))
             {
@@ -49,7 +52,7 @@ namespace sdk_cloud_dfe
 
             string doc = payload["doc"].ToString();
 
-            var resp = await _client.Send("DELETE", $"/soft/emitente/{doc}", null);
+            var resp = await _client.Send("DELETE", $"/soft/emitente/{doc}");
             return resp;
         }
     }

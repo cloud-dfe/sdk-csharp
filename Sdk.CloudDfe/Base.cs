@@ -1,8 +1,10 @@
+#pragma warning disable CS8604 // Caso for alterar toda estrutura do SDK habilite os erros
+
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace sdk_cloud_dfe
+namespace Sdk.CloudDfe
 {
     public class Base
     {

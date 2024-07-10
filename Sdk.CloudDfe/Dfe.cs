@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace sdk_cloud_dfe
+namespace Sdk.CloudDfe
 {
     public class Dfe : Base
     {
@@ -17,7 +17,7 @@ namespace sdk_cloud_dfe
         public async Task<Dictionary<string, object>> DownloadCte(Dictionary<string, object> payload)
         {
             var key = CheckKey(payload);
-            var resp = await _client.Send("GET", $"/dfe/cte/{key}", null);
+            var resp = await _client.Send("GET", $"/dfe/cte/{key}");
             return resp;
         }
         public async Task<Dictionary<string, object>> BuscaNfe(Dictionary<string, object> payload)
@@ -28,7 +28,7 @@ namespace sdk_cloud_dfe
         public async Task<Dictionary<string, object>> DownloadNfe(Dictionary<string, object> payload)
         {
             var key = CheckKey(payload);
-            var resp = await _client.Send("GET", $"/dfe/nfe/{key}", null);
+            var resp = await _client.Send("GET", $"/dfe/nfe/{key}");
             return resp;
         }
         public async Task<Dictionary<string, object>> BuscaNfse(Dictionary<string, object> payload)
@@ -39,13 +39,13 @@ namespace sdk_cloud_dfe
         public async Task<Dictionary<string, object>> DownloadNfse(Dictionary<string, object> payload)
         {
             var key = CheckKey(payload);
-            var resp = await _client.Send("GET", $"/dfe/nfse/{key}", null);
+            var resp = await _client.Send("GET", $"/dfe/nfse/{key}");
             return resp;
         }
         public async Task<Dictionary<string, object>> Eventos(Dictionary<string, object> payload)
         {
             var key = CheckKey(payload);
-            var resp = await _client.Send("GET", $"/dfe/eventos/{key}", null);
+            var resp = await _client.Send("GET", $"/dfe/eventos/{key}");
             return resp;
         }
         public async Task<Dictionary<string, object>> Backup(Dictionary<string, object> payload)

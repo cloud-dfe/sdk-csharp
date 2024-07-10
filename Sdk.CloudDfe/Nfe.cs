@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace sdk_cloud_dfe
+namespace Sdk.CloudDfe
 {
     public class Nfe : Base
     {
@@ -19,13 +19,13 @@ namespace sdk_cloud_dfe
         }
         public async Task<Dictionary<string, object>> Status()
         {
-            var resp = await _client.Send("GET", "/nfe/status", null);
+            var resp = await _client.Send("GET", "/nfe/status");
             return resp;
         }
         public async Task<Dictionary<string, object>> Consulta(Dictionary<string, object> payload)
         {
             var key = CheckKey(payload);
-            var resp = await _client.Send("GET",  $"/nfe/{key}", null);
+            var resp = await _client.Send("GET",  $"/nfe/{key}");
             return resp;
         }
         public async Task<Dictionary<string, object>> Busca(Dictionary<string, object> payload)
@@ -51,13 +51,13 @@ namespace sdk_cloud_dfe
         public async Task<Dictionary<string, object>> Pdf(Dictionary<string, object> payload)
         {
             var key = CheckKey(payload);
-            var resp = await _client.Send("GET", $"/nfe/pdf/{key}", null);
+            var resp = await _client.Send("GET", $"/nfe/pdf/{key}");
             return resp;
         }
         public async Task<Dictionary<string, object>> Etiqueta(Dictionary<string, object> payload)
         {
             var key = CheckKey(payload);
-            var resp = await _client.Send("GET", $"/nfe/pdf/etiqueta/{key}", null);
+            var resp = await _client.Send("GET", $"/nfe/pdf/etiqueta/{key}");
             return resp;
         }
         public async Task<Dictionary<string, object>> Manifesta(Dictionary<string, object> payload)
@@ -73,7 +73,7 @@ namespace sdk_cloud_dfe
         public async Task<Dictionary<string, object>> Download(Dictionary<string, object> payload)
         {
             var key = CheckKey(payload);
-            var resp = await _client.Send("GET", $"/nfe/download/{key}", null);
+            var resp = await _client.Send("GET", $"/nfe/download/{key}");
             return resp;
         }
         public async Task<Dictionary<string, object>> Recebidas(Dictionary<string, object> payload)

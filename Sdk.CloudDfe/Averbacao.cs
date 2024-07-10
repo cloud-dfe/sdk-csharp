@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace sdk_cloud_dfe
+namespace Sdk.CloudDfe
 {
     public class Averbacao : Base
     {
@@ -21,7 +21,7 @@ namespace sdk_cloud_dfe
         }
         public async Task<Dictionary<string, object>> Elt(Dictionary<string, object> payload)
         {
-            var resp = await _client.Send("POST", "/averbacao/etl", payload);
+            var resp = await _client.Send("POST", "/averbacao/elt", payload);
             return resp;
         }
         public async Task<Dictionary<string, object>> PortoSeguro(Dictionary<string, object> payload)

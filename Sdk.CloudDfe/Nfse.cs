@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace sdk_cloud_dfe
+namespace Sdk.CloudDfe
 {
     public class Nfse : Base
     {
@@ -20,13 +20,13 @@ namespace sdk_cloud_dfe
         public async Task<Dictionary<string, object>> Pdf(Dictionary<string, object> payload)
         {
             var key = CheckKey(payload);
-            var resp = await _client.Send("GET",  $"/nfse/pdf/{key}", null);
+            var resp = await _client.Send("GET",  $"/nfse/pdf/{key}");
             return resp;
         }
         public async Task<Dictionary<string, object>> Consulta(Dictionary<string, object> payload)
         {
             var key = CheckKey(payload);
-            var resp = await _client.Send("GET",  $"/nfse/{key}", null);
+            var resp = await _client.Send("GET",  $"/nfse/{key}");
             return resp;
         }
         public async Task<Dictionary<string, object>> Cancela(Dictionary<string, object> payload)
@@ -56,8 +56,8 @@ namespace sdk_cloud_dfe
         }
         public async Task<Dictionary<string, object>> Info(Dictionary<string, object> payload)
         {
-            var ibge = payload["ibge"].ToString()
-            var resp = await _client.Send("GET", $"/nfse/info/{ibge}", null);
+            var ibge = payload["ibge"].ToString();
+            var resp = await _client.Send("GET", $"/nfse/info/{ibge}");
             return resp;
         }
         public async Task<Dictionary<string, object>> Conflito(Dictionary<string, object> payload)
@@ -67,13 +67,13 @@ namespace sdk_cloud_dfe
         }
         public async Task<Dictionary<string, object>> Offline()
         {
-            var resp = await _client.Send("GET", "/nfse/offline", null);
+            var resp = await _client.Send("GET", "/nfse/offline");
             return resp;
         }
         public async Task<Dictionary<string, object>> Resolve(Dictionary<string, object> payload)
         {
             var key = CheckKey(payload);
-            var resp = await _client.Send("GET", $"/nfse/resolve/{key}", null);
+            var resp = await _client.Send("GET", $"/nfse/resolve/{key}");
             return resp;
         }
     }

@@ -1,8 +1,10 @@
+#pragma warning disable CS8625, CS8601, CS8604, CS8618 // Caso for alterar toda estrutura do SDK habilite os erros
+
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace sdk_cloud_dfe
+namespace Sdk.CloudDfe
 {
     public class Client
     {
@@ -44,10 +46,12 @@ namespace sdk_cloud_dfe
 
         }
 
-        public async Task<Dictionary<string, object>> Send(string method, string route, Dictionary<string, object> payload)
+        public async Task<Dictionary<string, object>> Send(string method, string route, Dictionary<string, object> payload = null)
         {
             try{
+                payload ??= new Dictionary<string, object>();
                 var response = await _service.Request(method, route, payload);
+
                 return response;
             }
             catch (Exception ex)

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace sdk_cloud_dfe
+namespace Sdk.CloudDfe
 {
     public class Emitente : Base
     {
@@ -11,7 +11,7 @@ namespace sdk_cloud_dfe
 
         public async Task<Dictionary<string, object>> Token()
         {
-            var resp = await _client.Send("GET", "/emitente/token", []);
+            var resp = await _client.Send("GET", "/emitente/token");
             return resp;
         }
         public async Task<Dictionary<string, object>> Atualiza(Dictionary<string, object> payload)
@@ -21,7 +21,7 @@ namespace sdk_cloud_dfe
         }
         public async Task<Dictionary<string, object>> Mostra()
         {
-            var resp = await _client.Send("GET", "/emitente", null);
+            var resp = await _client.Send("GET", "/emitente");
             return resp;
         }
     }

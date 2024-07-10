@@ -19,3 +19,6 @@ _ReSharper.*
 *.nuget.targets
 *.orig
 .DS_Store
+
+*Tester/
+*dist/

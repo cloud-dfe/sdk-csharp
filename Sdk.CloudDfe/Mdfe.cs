@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace sdk_cloud_dfe
+namespace Sdk.CloudDfe
 {
     public class Mdfe : Base
     {
@@ -21,13 +21,13 @@ namespace sdk_cloud_dfe
         }
         public async Task<Dictionary<string, object>> Status()
         {
-            var resp = await _client.Send("GET", "/mdfe/status", []);
+            var resp = await _client.Send("GET", "/mdfe/status");
             return resp;
         }
         public async Task<Dictionary<string, object>> Consulta(Dictionary<string, object> payload)
         {
             var key = CheckKey(payload);
-            var resp = await _client.Send("POST", $"/mdfe/{key}", null);
+            var resp = await _client.Send("GET", $"/mdfe/{key}");
             return resp;
         }
         public async Task<Dictionary<string, object>> Busca(Dictionary<string, object> payload)
@@ -52,7 +52,7 @@ namespace sdk_cloud_dfe
         }
         public async Task<Dictionary<string, object>> Offline()
         {
-            var resp = await _client.Send("GET", "/mdfe/offline", null);
+            var resp = await _client.Send("GET", "/mdfe/offline");
             return resp;
         }
         public async Task<Dictionary<string, object>> Pdf(Dictionary<string, object> payload)
@@ -73,7 +73,7 @@ namespace sdk_cloud_dfe
         }
         public async Task<Dictionary<string, object>> Abertos()
         {
-            var resp = await _client.Send("GET", "/mdfe/abertos", null);
+            var resp = await _client.Send("GET", "/mdfe/abertos");
             return resp;
         }
         public async Task<Dictionary<string, object>> Importa(Dictionary<string, object> payload)

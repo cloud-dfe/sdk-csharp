@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace sdk_cloud_dfe
+namespace Sdk.CloudDfe
 {
     public class Certificado : Base
     {
@@ -16,7 +16,7 @@ namespace sdk_cloud_dfe
         }
         public async Task<Dictionary<string, object>> Mostra()
         {
-            var resp = await _client.Send("GET", "/certificado", null);
+            var resp = await _client.Send("GET", "/certificado");
             return resp;
         }
 

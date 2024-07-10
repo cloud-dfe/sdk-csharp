@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace sdk_cloud_dfe
+namespace Sdk.CloudDfe
 {
     public class Nfce : Base
     {
@@ -21,13 +21,13 @@ namespace sdk_cloud_dfe
         }
         public async Task<Dictionary<string, object>> Status()
         {
-            var resp = await _client.Send("GET", "/nfce/status", null);
+            var resp = await _client.Send("GET", "/nfce/status");
             return resp;
         }
         public async Task<Dictionary<string, object>> Consulta(Dictionary<string, object> payload)
         {
             var key = CheckKey(payload);
-            var resp = await _client.Send("GET", $"/nfce/{key}", null);
+            var resp = await _client.Send("GET", $"/nfce/{key}");
             return resp;
         }
         public async Task<Dictionary<string, object>> Busca(Dictionary<string, object> payload)
@@ -42,7 +42,7 @@ namespace sdk_cloud_dfe
         }
         public async Task<Dictionary<string, object>> Offline(Dictionary<string, object> payload)
         {
-            var resp = await _client.Send("GET", "/nfce/offline", null);
+            var resp = await _client.Send("GET", "/nfce/offline");
             return resp;
         }
         public async Task<Dictionary<string, object>> Inutiliza(Dictionary<string, object> payload)
@@ -53,7 +53,7 @@ namespace sdk_cloud_dfe
         public async Task<Dictionary<string, object>> Pdf(Dictionary<string, object> payload)
         {
             var key = CheckKey(payload);
-            var resp = await _client.Send("GET", $"/nfce/pdf/{key}", null);
+            var resp = await _client.Send("GET", $"/nfce/pdf/{key}");
             return resp;
         }
         public async Task<Dictionary<string, object>> Substitui(Dictionary<string, object> payload)

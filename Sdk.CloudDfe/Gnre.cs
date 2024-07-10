@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace sdk_cloud_dfe
+namespace Sdk.CloudDfe
 {
     public class Gnre : Base
     {
@@ -12,7 +12,7 @@ namespace sdk_cloud_dfe
         public async Task<Dictionary<string, object>> Consulta(Dictionary<string, object> payload)
         {
             var key = CheckKey(payload);
-            var resp = await _client.Send("GET", $"/gnre/{key}", []);
+            var resp = await _client.Send("GET", $"/gnre/{key}");
             return resp;
         }
         public async Task<Dictionary<string, object>> Cria(Dictionary<string, object> payload)

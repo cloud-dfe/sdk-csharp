@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace sdk_cloud_dfe
+namespace Sdk.CloudDfe
 {
     public class Cte : Base
     {
@@ -11,19 +11,19 @@ namespace sdk_cloud_dfe
 
         public async Task<Dictionary<string, object>> Status()
         {
-            var resp = await _client.Send("GET", "/cte/status", null);
+            var resp = await _client.Send("GET", "/cte/status");
             return resp;
         }
         public async Task<Dictionary<string, object>> Consulta(Dictionary<string, object> payload)
         {
             var key = CheckKey(payload);
-            var resp = await _client.Send("GET", $"/cte{key}", null);
+            var resp = await _client.Send("GET", $"/cte/{key}");
             return resp;
         }
         public async Task<Dictionary<string, object>> Pdf(Dictionary<string, object> payload)
         {
             var key = CheckKey(payload);
-            var resp = await _client.Send("POST", $"/cte/pdf/{key}", null);
+            var resp = await _client.Send("GET", $"/cte/pdf/{key}");
             return resp;
         }
         public async Task<Dictionary<string, object>> Cria(Dictionary<string, object> payload)
