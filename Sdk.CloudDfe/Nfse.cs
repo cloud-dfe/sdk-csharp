@@ -1,12 +1,7 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace Sdk.CloudDfe
 {
-    public class Nfse : Base
+    public class Nfse(Dictionary<string, object> config) : Base(config)
     {
-        public Nfse(Dictionary<string, object> config) : base(config){}
-
         public async Task<Dictionary<string, object>> Cria(Dictionary<string, object> payload)
         {
             var resp = await _client.Send("POST", "/nfse", payload);

@@ -43,6 +43,11 @@ namespace Sdk.CloudDfe
             var jsonData = JsonConvert.SerializeObject(payload);
             var url = new Uri($"{_baseURI}{route}");
 
+            if (_debug)
+            {
+                Console.WriteLine(url);
+            }
+
             var request = new HttpRequestMessage(new HttpMethod(method), url)
             {
                 Content = new StringContent(jsonData, Encoding.UTF8, "application/json")
@@ -56,7 +61,6 @@ namespace Sdk.CloudDfe
             try
             {
                 var response = await _httpClient.SendAsync(request);
-                response.EnsureSuccessStatusCode();
 
                 var responseJson = JObject.Parse(await response.Content.ReadAsStringAsync());
 

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Sdk.CloudDfe
 {
     public static class Consts

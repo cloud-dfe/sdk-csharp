@@ -1,15 +1,9 @@
 #pragma warning disable CS8600 // Caso for alterar toda estrutura do SDK habilite os erros
 
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace Sdk.CloudDfe
 {
-    public class Softhouse : Base
+    public class Softhouse(Dictionary<string, object> config) : Base(config)
     {
-        public Softhouse(Dictionary<string, object> config) : base(config){}
-
         public async Task<Dictionary<string, object>> CriaEmitente(Dictionary<string, object> payload)
         {
             var resp = await _client.Send("POST", "/soft/emitente", payload);

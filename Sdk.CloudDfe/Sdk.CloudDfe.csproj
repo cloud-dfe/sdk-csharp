@@ -10,7 +10,7 @@
     <Authors>Integra Notas</Authors>
     <Description>SDK para se comunicar com a API da IntegraNotas</Description>
     <PackageReleaseNotes>Setup</PackageReleaseNotes>
-    <PackageId>Sdk.IntegraNotas</PackageId>
+    <PackageId>Sdk.CloudDfe</PackageId>
     <Version>1.0.0</Version>
   </PropertyGroup>
 

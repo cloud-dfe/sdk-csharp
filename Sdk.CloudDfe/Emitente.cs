@@ -1,11 +1,7 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace Sdk.CloudDfe
 {
-    public class Emitente : Base
+    public class Emitente(Dictionary<string, object> config) : Base(config)
     {
-        public Emitente(Dictionary<string, object> config) : base(config){}
 
         // Rotas Dfe
 

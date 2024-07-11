@@ -1,11 +1,7 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace Sdk.CloudDfe
 {
-    public class Gnre : Base
+    public class Gnre(Dictionary<string, object> config) : Base(config)
     {
-        public Gnre(Dictionary<string, object> config) : base(config){}
 
         // Rotas Dfe
 

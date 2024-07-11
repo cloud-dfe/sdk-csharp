@@ -1,11 +1,7 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace Sdk.CloudDfe
 {
-    public class Averbacao : Base
+    public class Averbacao(Dictionary<string, object> config) : Base(config)
     {
-        public Averbacao(Dictionary<string, object> config) : base(config){}
 
         // Rotas Averbação
 

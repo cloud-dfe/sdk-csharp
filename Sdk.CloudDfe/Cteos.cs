@@ -1,11 +1,7 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace Sdk.CloudDfe
 {
-    public class Cteos : Base
+    public class Cteos(Dictionary<string, object> config) : Base(config)
     {
-        public Cteos(Dictionary<string, object> config) : base(config){}
 
         // Rotas CteOS
 

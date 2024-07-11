@@ -22,3 +22,5 @@ _ReSharper.*
 
 *Tester/
 *dist/
+
+*sdk-csharp.sln

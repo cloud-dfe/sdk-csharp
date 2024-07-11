@@ -1,11 +1,7 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace Sdk.CloudDfe
 {
-    public class Certificado : Base
+    public class Certificado(Dictionary<string, object> config) : Base(config)
     {
-        public Certificado(Dictionary<string, object> config) : base(config){}
 
         // Rotas Certificado
 
