@@ -9,17 +9,19 @@ var config = new Dictionary<string, object>
     { "debug", true }
 };
 
-var cteos = new Cteos(config);
+var dfe = new Dfe(config);
 
 try
 {
 
     var payload = new Dictionary<string, object>
     {
-        {"chave", "50000000000000000000000000000000000000000000"}
+        {"periodo", "2020-10"},
+        {"data", "2020-10-15"},
+        {"cnpj", "06338788000127"}
     };
 
-    var resp = Task.Run(async () => await cteos.Consulta(payload)).GetAwaiter().GetResult();
+    var resp = Task.Run(async () => await dfe.BuscaCte(payload)).GetAwaiter().GetResult();
     
     string jsonOutput = JsonConvert.SerializeObject(resp, Formatting.Indented);
     Console.WriteLine(jsonOutput);
