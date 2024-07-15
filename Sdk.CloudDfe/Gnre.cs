@@ -16,9 +16,8 @@ namespace Sdk.CloudDfe
             var resp = await _client.Send("POST", "/gnre", payload);
             return resp;
         }
-        public async Task<Dictionary<string, object>> Mostra(Dictionary<string, object> payload)
+        public async Task<Dictionary<string, object>> ConfigUf(Dictionary<string, object> payload)
         {
-            var key = CheckKey(payload);
             var resp = await _client.Send("POST", "/gnre/configuf", payload);
             return resp;
         }
