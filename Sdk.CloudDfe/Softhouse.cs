@@ -24,7 +24,7 @@ namespace Sdk.CloudDfe
             var resp = await _client.Send("GET", $"/soft/emitente/{doc}");
             return resp;
         }
-        public async Task<Dictionary<string, object>> ListaEmitentes(Dictionary<string, object> payload)
+        public async Task<Dictionary<string, object>> ListaEmitente(Dictionary<string, object> payload)
         {
             string status = payload.ContainsKey("status") ? payload["status"].ToString() : "";
             string rota = "/soft/emitente";

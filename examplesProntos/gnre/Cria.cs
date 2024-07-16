@@ -117,11 +117,8 @@ try
         {
             if (resp.ContainsKey("erros"))
             {
-                var erros = (List<object>)resp["erros"];
-                foreach (var erro in erros)
-                {
-                    Console.WriteLine(erro);
-                }
+                var erros = resp["erros"].ToString();
+                Console.WriteLine(erros);
             }
         }
         else if (resp.ContainsKey("codigo") && (Convert.ToInt32(resp["codigo"]) == 5008 || Convert.ToInt32(resp["codigo"]) >= 7000))

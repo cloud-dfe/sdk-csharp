@@ -36,7 +36,7 @@ namespace Sdk.CloudDfe
             var resp = await _client.Send("GET", "/nfce/cancela", payload);
             return resp;
         }
-        public async Task<Dictionary<string, object>> Offline(Dictionary<string, object> payload)
+        public async Task<Dictionary<string, object>> Offline()
         {
             var resp = await _client.Send("GET", "/nfce/offline");
             return resp;
