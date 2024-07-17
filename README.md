@@ -5,7 +5,7 @@ Este SDK visa simplificar a integração do seu sistema com a nossa API, oferece
 ## Forma de instalação de nosso SDK:
 
 ```
-
+dotnet add package SDK-CloudDfe
 ```
 
 ## Forma de uso:

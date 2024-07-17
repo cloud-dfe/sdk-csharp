@@ -24,3 +24,5 @@ _ReSharper.*
 *dist/
 
 *sdk-csharp.sln
+
+.env
