@@ -88,7 +88,7 @@ var payload = new Dictionary<string, object>
                     }
                 }
             },
-            {"reboque", new List<object>()}
+            {"reboques", new List<object>()}
         }
     }
 };
