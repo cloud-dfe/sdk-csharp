@@ -1,9 +1,14 @@
-#pragma warning disable CS8600 // Caso for alterar toda estrutura do SDK habilite os erros
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Sdk.CloudDfe
 {
-    public class Softhouse(Dictionary<string, object> config) : Base(config)
+    public class Softhouse : Base
     {
+        public Softhouse(Dictionary<string, object> config) : base(config)
+        {
+        }
         public async Task<Dictionary<string, object>> CriaEmitente(Dictionary<string, object> payload)
         {
             var resp = await _client.Send("POST", "/soft/emitente", payload);
@@ -16,7 +21,8 @@ namespace Sdk.CloudDfe
         }
         public async Task<Dictionary<string, object>> MostraEmitente(Dictionary<string, object> payload)
         {
-            if (!payload.ContainsKey("doc")) {
+            if (!payload.ContainsKey("doc"))
+            {
                 throw new Exception("O doc não foi informado no processo.");
             }
 
@@ -28,12 +34,12 @@ namespace Sdk.CloudDfe
         {
             string status = payload.ContainsKey("status") ? payload["status"].ToString() : "";
             string rota = "/soft/emitente";
-    
+
             if (status == "deletados" || status == "inativos")
             {
                 rota = "/soft/emitente/deletados";
             }
-            
+
             var resp = await _client.Send("GET", rota);
             return resp;
         }

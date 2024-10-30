@@ -1,5 +1,3 @@
-#pragma warning disable CS8625, CS8601, CS8604, CS8618 // Caso for alterar toda estrutura do SDK habilite os erros
-
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,23 +11,24 @@ namespace Sdk.CloudDfe
         private readonly string _ambiente;
         private readonly int _timeout;
         private readonly bool _debug;
-        
+
         public Client(Dictionary<string, object> config)
         {
-            if (!config.ContainsKey("token")) {
+            if (!config.ContainsKey("token"))
+            {
                 throw new ArgumentException("O token não foi informado no processo.");
             }
 
             _token = config["token"].ToString();
 
-            if (!config.ContainsKey("ambiente") || (config["ambiente"].ToString() != Consts.AMBIENTE_PRODUCAO && 
+            if (!config.ContainsKey("ambiente") || (config["ambiente"].ToString() != Consts.AMBIENTE_PRODUCAO &&
                  config["ambiente"].ToString() != Consts.AMBIENTE_HOMOLOGACAO))
             {
                 throw new ArgumentException("O AMBIENTE deve ser 1-PRODUCÃO OU 2-HOMOLOGAÇÃO.");
             }
 
             _ambiente = config["ambiente"].ToString();
-            
+
             _timeout = config.ContainsKey("timeout") ? Convert.ToInt32(config["timeout"]) : 60;
             _debug = config.ContainsKey("debug") ? Convert.ToBoolean(config["debug"]) : false;
 
@@ -48,8 +47,12 @@ namespace Sdk.CloudDfe
 
         public async Task<Dictionary<string, object>> Send(string method, string route, Dictionary<string, object> payload = null)
         {
-            try{
-                payload ??= new Dictionary<string, object>();
+            try
+            {
+                if (payload == null)
+                {
+                    payload = new Dictionary<string, object>();
+                }
                 var response = await _service.Request(method, route, payload);
 
                 return response;

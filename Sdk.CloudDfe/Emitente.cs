@@ -1,8 +1,13 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace Sdk.CloudDfe
 {
-    public class Emitente(Dictionary<string, object> config) : Base(config)
+    public class Emitente : Base
     {
-
+        public Emitente(Dictionary<string, object> config) : base(config)
+        {
+        }
         // Rotas Dfe
 
         public async Task<Dictionary<string, object>> Token()

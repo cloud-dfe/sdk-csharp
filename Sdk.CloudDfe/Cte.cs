@@ -1,8 +1,13 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace Sdk.CloudDfe
 {
-    public class Cte(Dictionary<string, object> config) : Base(config)
+    public class Cte : Base
     {
-
+        public Cte(Dictionary<string, object> config) : base(config)
+        {
+        }
         // Rotas Cte
 
         public async Task<Dictionary<string, object>> Status()

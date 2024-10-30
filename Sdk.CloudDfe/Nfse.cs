@@ -1,7 +1,13 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace Sdk.CloudDfe
 {
-    public class Nfse(Dictionary<string, object> config) : Base(config)
+    public class Nfse : Base
     {
+        public Nfse(Dictionary<string, object> config) : base(config)
+        {
+        }
         public async Task<Dictionary<string, object>> Cria(Dictionary<string, object> payload)
         {
             var resp = await _client.Send("POST", "/nfse", payload);
@@ -15,13 +21,13 @@ namespace Sdk.CloudDfe
         public async Task<Dictionary<string, object>> Pdf(Dictionary<string, object> payload)
         {
             var key = CheckKey(payload);
-            var resp = await _client.Send("GET",  $"/nfse/pdf/{key}");
+            var resp = await _client.Send("GET", $"/nfse/pdf/{key}");
             return resp;
         }
         public async Task<Dictionary<string, object>> Consulta(Dictionary<string, object> payload)
         {
             var key = CheckKey(payload);
-            var resp = await _client.Send("GET",  $"/nfse/{key}");
+            var resp = await _client.Send("GET", $"/nfse/{key}");
             return resp;
         }
         public async Task<Dictionary<string, object>> Cancela(Dictionary<string, object> payload)

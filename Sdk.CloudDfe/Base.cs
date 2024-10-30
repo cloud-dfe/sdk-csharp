@@ -1,8 +1,6 @@
-#pragma warning disable CS8604 // Caso for alterar toda estrutura do SDK habilite os erros
-
 using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace Sdk.CloudDfe
 {

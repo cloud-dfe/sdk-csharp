@@ -1,8 +1,13 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace Sdk.CloudDfe
 {
-    public class Gnre(Dictionary<string, object> config) : Base(config)
+    public class Gnre : Base
     {
-
+        public Gnre(Dictionary<string, object> config) : base(config)
+        {
+        }
         // Rotas Dfe
 
         public async Task<Dictionary<string, object>> Consulta(Dictionary<string, object> payload)

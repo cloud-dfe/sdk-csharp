@@ -1,8 +1,13 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace Sdk.CloudDfe
 {
-    public class Nfcom(Dictionary<string, object> config) : Base(config)
+    public class Nfcom : Base
     {
-
+        public Nfcom(Dictionary<string, object> config) : base(config)
+        {
+        }
         // Rotas Nfcom
 
         public async Task<Dictionary<string, object>> Status()

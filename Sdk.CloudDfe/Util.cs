@@ -1,5 +1,7 @@
 using System.IO.Compression;
 using System.Text;
+using System;
+using System.IO;
 
 namespace Sdk.CloudDfe
 {

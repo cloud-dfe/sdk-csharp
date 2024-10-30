@@ -1,8 +1,13 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace Sdk.CloudDfe
 {
-    public class Dfe(Dictionary<string, object> config) : Base(config)
+    public class Dfe : Base
     {
-
+        public Dfe(Dictionary<string, object> config) : base(config)
+        {
+        }
         // Rotas Dfe
 
         public async Task<Dictionary<string, object>> BuscaCte(Dictionary<string, object> payload)

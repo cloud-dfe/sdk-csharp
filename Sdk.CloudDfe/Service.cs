@@ -1,10 +1,10 @@
 #pragma warning disable CS8601, CS8618, CS8600, CS8603 // Caso for alterar toda estrutura do SDK habilite os erros
 
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -65,7 +65,7 @@ namespace Sdk.CloudDfe
                 var responseJson = JObject.Parse(await response.Content.ReadAsStringAsync());
 
                 Dictionary<string, object> result = responseJson.ToObject<Dictionary<string, object>>();
-                
+
                 return result;
             }
             catch (Exception ex)

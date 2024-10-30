@@ -1,8 +1,13 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace Sdk.CloudDfe
 {
-    public class Nfce(Dictionary<string, object> config) : Base(config)
+    public class Nfce : Base
     {
-
+        public Nfce(Dictionary<string, object> config) : base(config)
+        {
+        }
         // Rotas Nfce
 
         public async Task<Dictionary<string, object>> Cria(Dictionary<string, object> payload)

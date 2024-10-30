@@ -1,10 +1,14 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace Sdk.CloudDfe
 {
-    public class Averbacao(Dictionary<string, object> config) : Base(config)
+    public class Averbacao : Base
     {
-
+        public Averbacao(Dictionary<string, object> config) : base(config)
+        {
+        }
         // Rotas Averbação
-
         public async Task<Dictionary<string, object>> Atm(Dictionary<string, object> payload)
         {
             var resp = await _client.Send("POST", "/averbacao/atm", payload);
