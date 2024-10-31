@@ -49,10 +49,6 @@ namespace Sdk.CloudDfe
         {
             try
             {
-                if (payload == null)
-                {
-                    payload = new Dictionary<string, object>();
-                }
                 var response = await _service.Request(method, route, payload);
 
                 return response;

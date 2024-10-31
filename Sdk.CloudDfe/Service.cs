@@ -31,8 +31,9 @@ namespace Sdk.CloudDfe
             };
         }
 
-        public async Task<Dictionary<string, object>> Request(string method, string route, Dictionary<string, object> payload)
+        public async Task<Dictionary<string, object>> Request(string method, string route, Dictionary<string, object> payload = null)
         {
+
             var headers = new Dictionary<string, string>
             {
                 { "Authorization", _token },
@@ -40,7 +41,12 @@ namespace Sdk.CloudDfe
                 { "Content-Type", "application/json" }
             };
 
-            var jsonData = JsonConvert.SerializeObject(payload);
+            var jsonData = "{}";
+            if (payload != null)
+            {
+                jsonData = JsonConvert.SerializeObject(payload);
+            }
+
             var url = new Uri($"{_baseURI}{route}");
 
             if (_debug)
