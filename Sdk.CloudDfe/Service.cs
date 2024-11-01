@@ -33,20 +33,13 @@ namespace Sdk.CloudDfe
 
         public async Task<Dictionary<string, object>> Request(string method, string route, Dictionary<string, object> payload = null)
         {
-
             var headers = new Dictionary<string, string>
             {
                 { "Authorization", _token },
-                { "Accept", "application/json" },
-                { "Content-Type", "application/json" }
+                { "Accept", "application/json" }
             };
 
-            var jsonData = "{}";
-            if (payload != null)
-            {
-                jsonData = JsonConvert.SerializeObject(payload);
-            }
-
+            var jsonData = payload != null ? JsonConvert.SerializeObject(payload) : "{}";
             var url = new Uri($"{_baseURI}{route}");
 
             if (_debug)
@@ -56,7 +49,7 @@ namespace Sdk.CloudDfe
 
             var request = new HttpRequestMessage(new HttpMethod(method), url)
             {
-                Content = new StringContent(jsonData, Encoding.UTF8, "application/json")
+                Content = payload != null ? new StringContent(jsonData, Encoding.UTF8, "application/json") : null
             };
 
             foreach (var header in headers)
@@ -67,12 +60,8 @@ namespace Sdk.CloudDfe
             try
             {
                 var response = await _httpClient.SendAsync(request);
-
                 var responseJson = JObject.Parse(await response.Content.ReadAsStringAsync());
-
-                Dictionary<string, object> result = responseJson.ToObject<Dictionary<string, object>>();
-
-                return result;
+                return responseJson.ToObject<Dictionary<string, object>>();
             }
             catch (Exception ex)
             {
