@@ -51,7 +51,7 @@ var payload = new Dictionary<string, object>
                 { "valor_csll", "1.00" },
                 { "valor_outras", "1.00" },
                 { "valor_aliquota", "1.00" },
-                { "valor_desconto_incondicionado", "1.00" }    
+                { "valor_desconto_incondicionado", "1.00" }
             }}
         }
     },
@@ -75,64 +75,58 @@ try
 {
 
     var resp = Task.Run(async () => await nfse.Cria(payload)).GetAwaiter().GetResult();
-    
+
     if (resp.ContainsKey("sucesso") && (bool)resp["sucesso"])
+    {
+        var chave = resp["chave"].ToString();
+        Thread.Sleep(5000);
+        int tentativa = 1;
+
+        while (tentativa <= 5)
         {
-            var chave = resp["chave"].ToString();
-            Thread.Sleep(5000);
-            int tentativa = 1;
+            var payloadConsulta = new Dictionary<string, object> { { "chave", chave } };
+            var respC = Task.Run(async () => await nfse.Consulta(payloadConsulta)).GetAwaiter().GetResult();
 
-            while (tentativa <= 5)
+            if (!respC.ContainsKey("codigo") || Convert.ToInt32(respC["codigo"]) != 5023)
             {
-                var payloadConsulta = new Dictionary<string, object> { { "chave", chave } };
-                var respC = Task.Run(async () => await nfse.Consulta(payloadConsulta)).GetAwaiter().GetResult();
-
-                if (!respC.ContainsKey("codigo") || Convert.ToInt32(respC["codigo"]) != 5023)
-                {
-                    if (respC.ContainsKey("sucesso") && (bool)respC["sucesso"])
-                    {
-                        string jsonOutput = JsonConvert.SerializeObject(respC, Formatting.Indented);
-                        Console.WriteLine(jsonOutput);
-                        break;
-                    }
-                }
-                else
+                if (respC.ContainsKey("sucesso") && (bool)respC["sucesso"])
                 {
                     string jsonOutput = JsonConvert.SerializeObject(respC, Formatting.Indented);
                     Console.WriteLine(jsonOutput);
                     break;
                 }
-
-                Thread.Sleep(5000);
-                tentativa += 1;
-            }
-        }
-        else if (resp.ContainsKey("codigo") && (Convert.ToInt32(resp["codigo"]) == 5001 || Convert.ToInt32(resp["codigo"]) == 5002))
-        {
-            if (resp.ContainsKey("erros"))
-            {
-                var erros = resp["erros"].ToString();
-                Console.WriteLine(erros);
-            }
-        }
-        else if (resp.ContainsKey("codigo") && (Convert.ToInt32(resp["codigo"]) == 5008 || Convert.ToInt32(resp["codigo"]) >= 7000))
-        {
-            var chave = resp["chave"].ToString();
-            string jsonOutput = JsonConvert.SerializeObject(resp, Formatting.Indented);
-            Console.WriteLine(jsonOutput);
-
-            var payloadConsulta = new Dictionary<string, object> { { "chave", chave } };
-            var respC = Task.Run(async () => await nfse.Consulta(payloadConsulta)).GetAwaiter().GetResult();
-
-            if (respC.ContainsKey("sucesso") && (bool)respC["sucesso"])
-            {
-                if (respC.ContainsKey("codigo") && Convert.ToInt32(respC["codigo"]) == 5023)
-                {
-                    jsonOutput = JsonConvert.SerializeObject(respC, Formatting.Indented);
-                    Console.WriteLine(jsonOutput);
-                }
             }
             else
+            {
+                string jsonOutput = JsonConvert.SerializeObject(respC, Formatting.Indented);
+                Console.WriteLine(jsonOutput);
+                break;
+            }
+
+            Thread.Sleep(5000);
+            tentativa += 1;
+        }
+    }
+    else if (resp.ContainsKey("codigo") && (Convert.ToInt32(resp["codigo"]) == 5001 || Convert.ToInt32(resp["codigo"]) == 5002))
+    {
+        if (resp.ContainsKey("erros"))
+        {
+            var erros = resp["erros"].ToString();
+            Console.WriteLine(erros);
+        }
+    }
+    else if (resp.ContainsKey("codigo") && (Convert.ToInt32(resp["codigo"]) == 5008))
+    {
+        var chave = resp["chave"].ToString();
+        string jsonOutput = JsonConvert.SerializeObject(resp, Formatting.Indented);
+        Console.WriteLine(jsonOutput);
+
+        var payloadConsulta = new Dictionary<string, object> { { "chave", chave } };
+        var respC = Task.Run(async () => await nfse.Consulta(payloadConsulta)).GetAwaiter().GetResult();
+
+        if (respC.ContainsKey("sucesso") && (bool)respC["sucesso"])
+        {
+            if (respC.ContainsKey("codigo") && Convert.ToInt32(respC["codigo"]) == 5023)
             {
                 jsonOutput = JsonConvert.SerializeObject(respC, Formatting.Indented);
                 Console.WriteLine(jsonOutput);
@@ -140,9 +134,15 @@ try
         }
         else
         {
-            string jsonOutput = JsonConvert.SerializeObject(resp, Formatting.Indented);
+            jsonOutput = JsonConvert.SerializeObject(respC, Formatting.Indented);
             Console.WriteLine(jsonOutput);
         }
+    }
+    else
+    {
+        string jsonOutput = JsonConvert.SerializeObject(resp, Formatting.Indented);
+        Console.WriteLine(jsonOutput);
+    }
 
 }
 catch (ArgumentException ex)
