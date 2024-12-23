@@ -131,8 +131,66 @@ try
     string jsonOutput = JsonConvert.SerializeObject(resp, Formatting.Indented);
     Console.WriteLine(jsonOutput);
 
+    if (resp.ContainsKey("sucesso") && (bool)resp["sucesso"]){
+        if (resp.ContainsKey("codigo") && Convert.ToInt32(resp["codigo"]) == 2){
+            // Offline
+            Console.WriteLine("Documento offline. Aguarde a notificação.");
+        }
+        else{
+            // Autorizado
+            Console.WriteLine($"Documento autorizado: {JsonConvert.SerializeObject(resp, Formatting.Indented)}");
+        }
+    }
+    else if (resp.ContainsKey("codigo") && (Convert.ToInt32(resp["codigo"]) == 5001 || Convert.ToInt32(resp["codigo"]) == 5002)){
+        // Erro nos campos
+        if (resp.ContainsKey("erros")){
+            Console.WriteLine($"Erro nos campos: {JsonConvert.SerializeObject(resp["erros"], Formatting.Indented)}");
+        }
+        else{
+            Console.WriteLine("Erro nos campos, mas sem detalhes disponíveis.");
+        }
+    }
+    else if (resp.ContainsKey("codigo") && (Convert.ToInt32(resp["codigo"]) == 5008 || Convert.ToInt32(resp["codigo"]) >= 7000)){
+        string chave = resp.ContainsKey("chave") ? resp["chave"]?.ToString() : null;
+
+        if (string.IsNullOrEmpty(chave)){
+            Console.WriteLine("Chave não encontrada no response.");
+            return;
+        }
+
+        // >= 7000 indica problemas de comunicação com a SEFAZ
+        Console.WriteLine($"Problemas de comunicação ou chave pendente: {JsonConvert.SerializeObject(resp, Formatting.Indented)}");
+
+        var payloadConsulta = new Dictionary<string, object> { { "chave", chave } };
+
+        try{
+            var respConsulta = Task.Run(async () => await nfce.Consulta(payloadConsulta)).GetAwaiter().GetResult();
+
+            if (respConsulta.ContainsKey("codigo") && Convert.ToInt32(respConsulta["codigo"]) != 5023){
+                if (respConsulta.ContainsKey("sucesso") && (bool)respConsulta["sucesso"]){
+                    // Autorizado
+                    Console.WriteLine($"Documento autorizado após consulta: {JsonConvert.SerializeObject(respConsulta, Formatting.Indented)}");
+                }
+                else{
+                    // Rejeição
+                    Console.WriteLine($"Documento rejeitado após consulta: {JsonConvert.SerializeObject(respConsulta, Formatting.Indented)}");
+                }
+            }
+            else{
+                // Em processamento
+                Console.WriteLine($"Documento em processamento: {JsonConvert.SerializeObject(respConsulta, Formatting.Indented)}");
+            }
+        }
+        catch (Exception ex){
+            Console.WriteLine($"Erro ao consultar documento: {ex.Message}");
+        }
+    }
+    else{
+        // Rejeição
+        Console.WriteLine($"Documento rejeitado: {JsonConvert.SerializeObject(resp, Formatting.Indented)}");
+    }
+
 }
-catch (ArgumentException ex)
-{
+catch (ArgumentException ex){
     Console.WriteLine($"Erro ao obter o status: {ex.Message}");
 }

@@ -139,20 +139,16 @@ try
             var payloadConsulta = new Dictionary<string, object> { { "chave", chave } };
             var respC = Task.Run(async () => await nfcom.Consulta(payloadConsulta)).GetAwaiter().GetResult();
 
-            if (!respC.ContainsKey("codigo") || Convert.ToInt32(respC["codigo"]) != 5023)
-            {
-                if (respC.ContainsKey("sucesso") && (bool)respC["sucesso"])
-                {
+            if (!respC.ContainsKey("codigo") || Convert.ToInt32(respC["codigo"]) != 5023){
+                if (respC.ContainsKey("sucesso") && (bool)respC["sucesso"]){
+                    string jsonOutput = JsonConvert.SerializeObject(respC, Formatting.Indented);
+                    Console.WriteLine(jsonOutput);
+                    break;
+                } else{
                     string jsonOutput = JsonConvert.SerializeObject(respC, Formatting.Indented);
                     Console.WriteLine(jsonOutput);
                     break;
                 }
-            }
-            else
-            {
-                string jsonOutput = JsonConvert.SerializeObject(respC, Formatting.Indented);
-                Console.WriteLine(jsonOutput);
-                break;
             }
 
             Thread.Sleep(5000);
@@ -176,17 +172,17 @@ try
         var payloadConsulta = new Dictionary<string, object> { { "chave", chave } };
         var respC = Task.Run(async () => await nfcom.Consulta(payloadConsulta)).GetAwaiter().GetResult();
 
-        if (respC.ContainsKey("sucesso") && (bool)respC["sucesso"])
-        {
-            if (respC.ContainsKey("codigo") && Convert.ToInt32(respC["codigo"]) == 5023)
+        if (!respC.ContainsKey("codigo") || Convert.ToInt32(respC["codigo"]) != 5023) {
+            if (respC.ContainsKey("sucesso") && (bool)respC["sucesso"])
             {
-                jsonOutput = JsonConvert.SerializeObject(respC, Formatting.Indented);
+                string jsonOutput = JsonConvert.SerializeObject(respC, Formatting.Indented);
+                Console.WriteLine(jsonOutput);
+            } else {
+                string jsonOutput = JsonConvert.SerializeObject(respC, Formatting.Indented);
                 Console.WriteLine(jsonOutput);
             }
-        }
-        else
-        {
-            jsonOutput = JsonConvert.SerializeObject(respC, Formatting.Indented);
+        } else {
+            string jsonOutput = JsonConvert.SerializeObject(respC, Formatting.Indented);
             Console.WriteLine(jsonOutput);
         }
     }
