@@ -102,5 +102,11 @@ namespace Sdk.CloudDfe
             var resp = await _client.Send("POST", "/nfe/cadastro", payload);
             return resp;
         }
+        public async Task<Dictionary<string, object>> Simples(Dictionary<string, object> payload)
+        {
+            var key = CheckKey(payload);
+            var resp = await _client.Send("GET", $"/nfe/pdf/simples/{key}");
+            return resp;
+        }
     }
 }
