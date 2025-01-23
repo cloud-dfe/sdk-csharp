@@ -196,32 +196,32 @@ try
 
     var resp = Task.Run(async () => await nfe.Cria(payload)).GetAwaiter().GetResult();
 
-    if (resp.ContainsKey("sucesso") && (bool)resp["sucesso"])
-    {
+    if (resp.ContainsKey("sucesso") && (bool)resp["sucesso"]){
         var chave = resp["chave"].ToString();
-        Thread.Sleep(5000);
-        int tentativa = 1;
+        var payloadConsulta = new Dictionary<string, object> { { "chave", chave } };
+        
+        Thread.Sleep(15000);
 
-        while (tentativa <= 5)
-        {
-            var payloadConsulta = new Dictionary<string, object> { { "chave", chave } };
-            var respC = Task.Run(async () => await nfe.Consulta(payloadConsulta)).GetAwaiter().GetResult();
-
-            if (!respC.ContainsKey("codigo") || Convert.ToInt32(respC["codigo"]) != 5023){
-                if (respC.ContainsKey("sucesso") && (bool)respC["sucesso"]){
-                    string jsonOutput = JsonConvert.SerializeObject(respC, Formatting.Indented);
-                    Console.WriteLine(jsonOutput);
-                    break;
-                } else{
-                    string jsonOutput = JsonConvert.SerializeObject(respC, Formatting.Indented);
-                    Console.WriteLine(jsonOutput);
-                    break;
-                }
+        var respC = Task.Run(async () => await nfe.Consulta(payloadConsulta)).GetAwaiter().GetResult();
+        
+        if (!respC.ContainsKey("codigo") || Convert.ToInt32(respC["codigo"]) != 5023){
+            if (respC.ContainsKey("sucesso") && (bool)respC["sucesso"]){
+                // autorizado
+                string jsonOutput = JsonConvert.SerializeObject(respC, Formatting.Indented);
+                Console.WriteLine(jsonOutput);
+            } else {
+                // rejeitação
+                string jsonOutput = JsonConvert.SerializeObject(respC, Formatting.Indented);
+                Console.WriteLine(jsonOutput);
             }
-
-            Thread.Sleep(5000);
-            tentativa += 1;
+        } else {
+            // nota em processamento
+            // recomendamos que seja utilizado o metodo de consulta manual ou o webhook
+            string jsonOutput = JsonConvert.SerializeObject(respC, Formatting.Indented);
+            Console.WriteLine(jsonOutput);
         }
+
+    
     }
     else if (resp.ContainsKey("codigo") && (Convert.ToInt32(resp["codigo"]) == 5001 || Convert.ToInt32(resp["codigo"]) == 5002))
     {
