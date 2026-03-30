@@ -14,8 +14,9 @@ namespace Sdk.CloudDfe
             {
                 {"token", config["token"].ToString()},
                 {"ambiente", config["ambiente"].ToString()},
-                {"timeout", Convert.ToInt32(config["timeout"])},
-                {"debug", Convert.ToBoolean(config["debug"])},
+                {"version", config.ContainsKey("version") && !string.IsNullOrWhiteSpace(config["version"]?.ToString()) ? config["version"].ToString() : "1"},
+                {"timeout", config.ContainsKey("timeout") ? Convert.ToInt32(config["timeout"]) : 60},
+                {"debug", config.ContainsKey("debug") ? Convert.ToBoolean(config["debug"]) : false},
             };
 
             _client = new Client(configClient);

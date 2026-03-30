@@ -9,6 +9,7 @@ namespace Sdk.CloudDfe
         private readonly Service _service;
         private readonly string _token;
         private readonly string _ambiente;
+        private readonly string _version;
         private readonly int _timeout;
         private readonly bool _debug;
 
@@ -28,11 +29,16 @@ namespace Sdk.CloudDfe
             }
 
             _ambiente = config["ambiente"].ToString();
+            _version = config.ContainsKey("version") && !string.IsNullOrWhiteSpace(config["version"]?.ToString())
+                ? config["version"].ToString()
+                : "1";
 
             _timeout = config.ContainsKey("timeout") ? Convert.ToInt32(config["timeout"]) : 60;
             _debug = config.ContainsKey("debug") ? Convert.ToBoolean(config["debug"]) : false;
 
-            var baseURI = _ambiente == Consts.AMBIENTE_PRODUCAO ? Consts.URI["api"][Consts.AMBIENTE_PRODUCAO] : Consts.URI["api"][Consts.AMBIENTE_HOMOLOGACAO];
+            var baseURI = (_ambiente == Consts.AMBIENTE_PRODUCAO
+                ? Consts.URI["api"][Consts.AMBIENTE_PRODUCAO]
+                : Consts.URI["api"][Consts.AMBIENTE_HOMOLOGACAO]) + _version;
             var configService = new Dictionary<string, object>
             {
                 {"token", _token},

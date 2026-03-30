@@ -11,8 +11,8 @@ namespace Sdk.CloudDfe
         {
             { "api", new Dictionary<string, string>()
                 {
-                    { AMBIENTE_PRODUCAO, "https://api.integranotas.com.br/v1" },
-                    { AMBIENTE_HOMOLOGACAO, "https://hom-api.integranotas.com.br/v1" }
+                    { AMBIENTE_PRODUCAO, "https://api.integranotas.com.br/v" },
+                    { AMBIENTE_HOMOLOGACAO, "https://hom-api.integranotas.com.br/v" }
                 }
             }
         };
