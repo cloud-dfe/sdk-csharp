@@ -18,6 +18,7 @@ var config = new Dictionary<string, object>
 {
     { "token", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbXAiOjQ2MSwidXNyIjoxNzAsInRwIjoyLCJpYXQiOjE2NTE1MDYzMjR9.a0cOwP6BUDZAboYwMzoMjutCtFM8Ph-X4pLahZIB_V4" },
     { "ambiente", Consts.AMBIENTE_HOMOLOGACAO },
+    { "version", 1 },
     { "timeout", 60 },
     { "debug", true }
 };
