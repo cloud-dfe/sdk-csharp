@@ -13,6 +13,8 @@ var ciot = new Ciot(config);
 
 var payload = new Dictionary<string, object>
 {
+    {"numero_inicial", "1"},
+    {"numero_final", "1999"},
     {"data_inicial", "2026-11-01"},
     {"data_final", "2026-11-30"},
     {"situacao", "ABERTO"},

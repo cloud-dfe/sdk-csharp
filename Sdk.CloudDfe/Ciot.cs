@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Sdk.CloudDfe
@@ -19,8 +17,8 @@ namespace Sdk.CloudDfe
         }
         public async Task<Dictionary<string, object>> Consulta(Dictionary<string, object> payload)
         {
-            var identificacao = CheckIdentificacao(payload);
-            var resp = await _client.Send("GET", $"/ciot/{identificacao}");
+            var key = CheckKey(payload);
+            var resp = await _client.Send("GET", $"/ciot/{key}");
             return resp;
         }
         public async Task<Dictionary<string, object>> Busca(Dictionary<string, object> payload)
@@ -45,27 +43,14 @@ namespace Sdk.CloudDfe
         }
         public async Task<Dictionary<string, object>> Pdf(Dictionary<string, object> payload)
         {
-            var identificacao = CheckIdentificacao(payload);
-            var resp = await _client.Send("GET", $"/ciot/pdf/{identificacao}");
+            var key = CheckKey(payload);
+            var resp = await _client.Send("GET", $"/ciot/pdf/{key}");
             return resp;
         }
         public async Task<Dictionary<string, object>> Transportador(Dictionary<string, object> payload)
         {
             var resp = await _client.Send("POST", "/ciot/transportador", payload);
             return resp;
-        }
-
-        // o CIOT é identificado pela identificação informada na criação, não por chave de acesso
-        public string CheckIdentificacao(Dictionary<string, object> payload)
-        {
-            var identificacao = payload.ContainsKey("identificacao") && payload["identificacao"] != null
-                ? payload["identificacao"].ToString().Trim()
-                : "";
-            if (!Regex.IsMatch(identificacao, @"^[A-Za-z0-9._-]{1,40}$"))
-            {
-                throw new ArgumentException("A identificação do CIOT deve ter de 1 a 40 caracteres: letras, números, ponto, hífen ou sublinhado.");
-            }
-            return Uri.EscapeDataString(identificacao);
         }
     }
 }

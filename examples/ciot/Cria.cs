@@ -13,7 +13,8 @@ var ciot = new Ciot(config);
 
 var payload = new Dictionary<string, object>
 {
-    {"identificacao", "VIAGEM-0001"},
+    {"numero", "1001"},
+    {"identificacao", "PEDIDO-77"},
     {"tipo_operacao", "1"},
     {"data_inicio", "2026-11-10"},
     {"data_fim", "2026-11-12"},

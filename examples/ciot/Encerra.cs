@@ -13,7 +13,7 @@ var ciot = new Ciot(config);
 
 var payload = new Dictionary<string, object>
 {
-    {"identificacao", "VIAGEM-0001"},
+    {"chave", "41261122333444000181927090000010011360347860"},
     {"carga", new Dictionary<string, object>
     {
         {"tipo", "05"},
